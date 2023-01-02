@@ -1,0 +1,52 @@
+body{
+    background-color: darkgrey;
+    font-family: 'Roboto', sans-serif;
+}
+
+header{
+    margin: 20px 20px 0 20px;
+    font-size: 0; /*remove white space*/
+    text-align: justify;
+}
+
+header:after{
+    content: "";
+    display: inline-block;
+    width: 100%;
+}
+
+.logos{
+    font-size: 16px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#buzzercounters{
+    width: 90%;
+    margin: 6% auto 0 auto;
+}
+
+.counter{
+    margin: 0 auto 0 auto;
+    border-radius: 10px;
+    font-size: 300px;
+    color: #FFF;
+    line-height: 500px;
+}
+
+.counter_label{
+    font-size: 80px;
+    color: #FFF;
+}
+
+#counter_0{
+    background-color: #CC0000;
+}
+
+#counter_1{
+    background-color: #FFCC00;
+}
+
+#counter_2{
+    background-color: #99FF00;
+}
