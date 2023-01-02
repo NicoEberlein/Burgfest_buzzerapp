@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>Mega-KFNT3000 Buzzerapp Einstellungen</title> 
+		
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/css/style.css}" />
+		<link rel="stylesheet" th:href="@{/css/settings.css}" />
+		<script th:src="@{/js/settings.js}"></script>
+	</head>
+	
+	<body>
+	
+		<header>
+			<img id="technik_logo" class="logos" height="120"
+				src="images/on_tour_for_jesus.png"> <img id="cvjm_logo"
+				class="logos" height="120" src="images/cvjm_bayern.png">
+		</header>
+	
+		<div class="mt-5 container-sm">
+	
+			<div class="card text-center">
+				<div class="card-header">
+					Mega-KFNT3000 Einstellungen
+				</div>
+	
+				<div class="card-body">
+	
+					<form id="buzzer-settings-form" action="javascript:void(0);">
+	
+						<div class="row">
+	
+							<div class="mt-3 form-group">
+								<label class="form-label" for="gamemode">Spielmodus</label>
+								<select class="form-control" id="gamemode"
+									value="counter" name="gamemode">
+									<option value="counter">Buzzerdr&uumlcke z&aumlhlen</option>
+									<option value="whowasfirst">Wer war der Erste?</option>
+								</select>
+							</div>
+	
+						</div>
+						
+						<div class="row">
+
+							<div class="mt-3 from-group">
+								<label class="form-label mt-3" for="teamname1">Name Team 1</label>
+								<input class="form-control" id="teamname1" type="text" name="teamname1"/>
+								
+								<label class="form-label mt-3" for="teamname2">Name Team 2</label>
+								<input class="form-control" id="teamname2" type="text" name="teamname2"/>
+								
+								<label class="form-label mt-3" for="teamname3">Name Team 3</label>
+								<input class="form-control" id="teamname3" type="text" name="teamname3"/>
+							</div>
+
+						</div>
+	
+	
+						<button class="mt-3 btn btn-success" onClick="sendFormData()">Submit</button>
+	
+						<div class="row">
+						
+							<div class="mt-3">
+							
+								<button class="btn btn-warning" onClick="reset()">Spielstand zur&uumlcksetzen</button>
+							
+							</div>
+						
+						</div>
+	
+						<div id="status" class="mt-3"></div>
+	
+					</form>
+	
+				</div>
+	
+			</div>
+	
+		</div>
+	
+	</body>
+
+</html>
