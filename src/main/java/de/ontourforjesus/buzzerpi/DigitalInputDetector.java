@@ -9,6 +9,7 @@ import com.pi4j.Pi4J;
 import com.pi4j.context.Context;
 import com.pi4j.io.gpio.digital.DigitalInput;
 import com.pi4j.io.gpio.digital.DigitalInputConfig;
+import com.pi4j.io.gpio.digital.DigitalInputProvider;
 import com.pi4j.io.gpio.digital.DigitalOutput;
 import com.pi4j.io.gpio.digital.DigitalState;
 
@@ -49,6 +50,7 @@ public class DigitalInputDetector{
 			this.b3out = b3out;
 			
 			pi4j = Pi4J.newAutoContext();
+			DigitalInputProvider provider = pi4j.provider("pigpio-digital-input");
 			
 			setOutputPinsHigh();
 			
@@ -58,7 +60,9 @@ public class DigitalInputDetector{
 			properties1.put("pull", "down");
 			properties1.put("name", "buzzer1Input");
 			DigitalInputConfig config1 = DigitalInput.newConfigBuilder(pi4j).load(properties1).build();
-			var input1 = pi4j.din().create(config1);
+			var input1 = provider.create(config1);
+			
+			System.out.println(input1.state());
 			
 			input1.addListener(e -> {
 				if(e.state() == DigitalState.HIGH) {
@@ -73,7 +77,9 @@ public class DigitalInputDetector{
 			properties2.put("pull", "down");
 			properties2.put("name", "buzzer1Input");
 			DigitalInputConfig config2 = DigitalInput.newConfigBuilder(pi4j).load(properties2).build();
-			var input2 = pi4j.din().create(config2);
+			var input2 = provider.create(config2);
+			
+			System.out.println(input2.state());
 			
 			input2.addListener(e -> {
 				if(e.state() == DigitalState.HIGH) {
@@ -88,7 +94,9 @@ public class DigitalInputDetector{
 			properties3.put("pull", "down");
 			properties3.put("name", "buzzer1Input");
 			DigitalInputConfig config3 = DigitalInput.newConfigBuilder(pi4j).load(properties3).build();
-			var input3 = pi4j.din().create(config3);
+			var input3 = provider.create(config3);
+			
+			System.out.println(input3.state());
 			
 			input3.addListener(e -> {
 				if(e.state() == DigitalState.HIGH) {
@@ -101,17 +109,13 @@ public class DigitalInputDetector{
 	
 	private void setOutputPinsHigh() {
 		
-		DigitalOutput dout1 = pi4j.dout().create(b1out);
-		dout1.config().setShutdownState(DigitalState.LOW);
-		dout1.state(DigitalState.HIGH);
-		
-		DigitalOutput dout2 = pi4j.dout().create(b2out);
-		dout2.config().setShutdownState(DigitalState.LOW);
-		dout2.state(DigitalState.HIGH);
-		
-		DigitalOutput dout3 = pi4j.dout().create(b3out);
-		dout3.config().setShutdownState(DigitalState.LOW);
-		dout3.state(DigitalState.HIGH);
+		var config1 = DigitalOutput.newConfigBuilder(pi4j).id("dout1").name("Dout1").address(b1out).shutdown(DigitalState.LOW).initial(DigitalState.HIGH).provider("pigpio-digital-output");
+		var config2 = DigitalOutput.newConfigBuilder(pi4j).id("dout2").name("Dout2").address(b2out).shutdown(DigitalState.LOW).initial(DigitalState.HIGH).provider("pigpio-digital-output");
+		var config3 = DigitalOutput.newConfigBuilder(pi4j).id("dout3").name("Dout3").address(b3out).shutdown(DigitalState.LOW).initial(DigitalState.HIGH).provider("pigpio-digital-output");
+	
+		var output1 = pi4j.create(config1);
+		var output2 = pi4j.create(config2);
+		var output3 = pi4j.create(config3);
 	}
 	
 	private void printCounters() {
