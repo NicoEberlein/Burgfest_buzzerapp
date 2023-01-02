@@ -2,16 +2,14 @@ package de.ontourforjesus.buzzerpi;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 @Component
 public class GameModeCounter implements DigitalInputListener{
-
-	@Autowired
-	private DigitalInputDetector digitalInputDetector;
 	
 	private int[] buzzerCounter;
 	
-	public GameModeCounter() {
+	public GameModeCounter(@Autowired DigitalInputDetector digitalInputDetector) {
 		
 		buzzerCounter = new int[3];
 		digitalInputDetector.registerListener(this);
