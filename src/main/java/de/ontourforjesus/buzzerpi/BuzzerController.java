@@ -8,7 +8,7 @@ public class BuzzerController {
 
 	@RequestMapping("/")
 	public String getBuzzerVisualizationPage() {
-		return "buzzerpage";
+		return "index";
 	}
 	
 }
