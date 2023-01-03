@@ -1,17 +1,19 @@
 package de.ontourforjesus.buzzerpi;
 
 import java.util.ArrayList;
+import java.util.Properties;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.pi4j.Pi4J;
 import com.pi4j.context.Context;
 import com.pi4j.io.gpio.digital.DigitalInput;
-import com.pi4j.io.gpio.digital.DigitalInputConfigBuilder;
+import com.pi4j.io.gpio.digital.DigitalInputConfig;
+import com.pi4j.io.gpio.digital.DigitalInputProvider;
 import com.pi4j.io.gpio.digital.DigitalOutput;
 import com.pi4j.io.gpio.digital.DigitalOutputConfigBuilder;
 import com.pi4j.io.gpio.digital.DigitalState;
-import com.pi4j.io.gpio.digital.PullResistance;
 
 @Component
 public class DigitalInputDetector{
@@ -37,50 +39,8 @@ public class DigitalInputDetector{
 			
 			pi4j = Pi4J.newAutoContext();
 			
-			setOutputPinsHigh();
-			
-			DigitalInputConfigBuilder baseConfig = DigitalInput
-					.newConfigBuilder(pi4j)
-					.provider("pigpio-digital-input")
-					.pull(PullResistance.PULL_DOWN);
-			
-			var input1 = pi4j.din().create(baseConfig.address(buzzerInputs[0]).name("b1in").id("b1in"));
-			var input2 = pi4j.din().create(baseConfig.address(buzzerInputs[1]).name("b2in").id("b2in"));
-			var input3 = pi4j.din().create(baseConfig.address(buzzerInputs[2]).name("b3in").id("b3in"));
-			
-/*			for(int i = 0; i<3; i++) {
-			
-				allInputs[i] = pi4j
-						.din().create(baseConfig
-								.address(buzzerInputs[i])
-								.id("b" + buzzerInputs[i] + "in")
-								.name("Buzzer" + buzzerInputs[i] + "In")
-						);
-				
-			}*/
-			
-			System.out.println(input1.state());
-			System.out.println(input2.state());
-			System.out.println(input3.state());
-			
-			input1.addListener(e -> {
-				if(e.state() == DigitalState.HIGH) {
-					System.out.println("Buzzer 1 Digital State => HIGH");
-					informAllRegisteredListeners(1);
-				}
-			});
-			input2.addListener(e -> {
-				if(e.state() == DigitalState.HIGH) {
-					System.out.println("Buzzer 2 Digital State => HIGH");
-					informAllRegisteredListeners(2);
-				}
-			});
-			input3.addListener(e -> {
-				if(e.state() == DigitalState.HIGH) {
-					System.out.println("Buzzer 3 Digital State => HIGH");
-					informAllRegisteredListeners(3);
-				}
-			});
+			setupOutputPins();
+			setupInputPins();
 		
 	}
 	
@@ -96,13 +56,57 @@ public class DigitalInputDetector{
 		}
 	}
 	
-	private void setOutputPinsHigh() {
+	private void setupOutputPins() {
 		
-		DigitalOutputConfigBuilder baseConfig = DigitalOutput.newConfigBuilder(pi4j).shutdown(DigitalState.LOW).initial(DigitalState.HIGH).provider("pigpio-digital-output");
+		DigitalOutputConfigBuilder baseOutputConfig = DigitalOutput.newConfigBuilder(pi4j).shutdown(DigitalState.LOW).initial(DigitalState.HIGH).provider("pigpio-digital-output");
 		
-		DigitalOutput output1 = pi4j.dout().create(baseConfig.address(buzzerOutputs[0]).id("b1out").name("Buzzer1Out"));
-		DigitalOutput output2 = pi4j.dout().create(baseConfig.address(buzzerOutputs[1]).id("b2out").name("Buzzer2Out"));
-		DigitalOutput output3 = pi4j.dout().create(baseConfig.address(buzzerOutputs[2]).id("b3out").name("Buzzer3Out"));
+		DigitalOutput output1 = pi4j.dout().create(baseOutputConfig.address(buzzerOutputs[0]).id("b1out").name("Buzzer1Out"));
+		DigitalOutput output2 = pi4j.dout().create(baseOutputConfig.address(buzzerOutputs[1]).id("b2out").name("Buzzer2Out"));
+		DigitalOutput output3 = pi4j.dout().create(baseOutputConfig.address(buzzerOutputs[2]).id("b3out").name("Buzzer3Out"));
+	}
+	
+	private void setupInputPins() {
+		
+		DigitalInputProvider provider = pi4j.provider("pigpio-digital-input");
+		
+		Properties[] inputProperties = new Properties[3];
+		
+		for(int i = 1; i<4; i++) {
+			inputProperties[i] = new Properties();
+			inputProperties[i].put("id", "b" + i + "in");
+			inputProperties[i].put("address", buzzerInputs[i-1]);
+			inputProperties[i].put("pull", "down");
+			inputProperties[i].put("name", "Buzzer" + i + "In");
+		}
+		
+		DigitalInputConfig config1 = DigitalInput.newConfigBuilder(pi4j).load(inputProperties[0]).build();
+		var input1 = provider.create(config1);
+		
+		DigitalInputConfig config2 = DigitalInput.newConfigBuilder(pi4j).load(inputProperties[1]).build();
+		var input2 = provider.create(config2);
+		
+		DigitalInputConfig config3 = DigitalInput.newConfigBuilder(pi4j).load(inputProperties[2]).build();
+		var input3 = provider.create(config3);
+		
+		
+		input1.addListener(e -> {
+			if(e.state() == DigitalState.HIGH) {
+				System.out.println("Buzzer 1 Digital State => HIGH");
+				informAllRegisteredListeners(1);
+			}
+		});
+		input2.addListener(e -> {
+			if(e.state() == DigitalState.HIGH) {
+				System.out.println("Buzzer 2 Digital State => HIGH");
+				informAllRegisteredListeners(2);
+			}
+		});
+		input3.addListener(e -> {
+			if(e.state() == DigitalState.HIGH) {
+				System.out.println("Buzzer 3 Digital State => HIGH");
+				informAllRegisteredListeners(3);
+			}
+		});
 	}
 	
 	
