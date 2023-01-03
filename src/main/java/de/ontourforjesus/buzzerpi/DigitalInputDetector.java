@@ -71,12 +71,12 @@ public class DigitalInputDetector{
 		
 		Properties[] inputProperties = new Properties[3];
 		
-		for(int i = 1; i<4; i++) {
+		for(int i = 0; i<3; i++) {
 			inputProperties[i] = new Properties();
-			inputProperties[i].put("id", "b" + i + "in");
-			inputProperties[i].put("address", buzzerInputs[i-1]);
+			inputProperties[i].put("id", "b" + (i+1) + "in");
+			inputProperties[i].put("address", buzzerInputs[i]);
 			inputProperties[i].put("pull", "down");
-			inputProperties[i].put("name", "Buzzer" + i + "In");
+			inputProperties[i].put("name", "Buzzer" + (i+1) + "In");
 		}
 		
 		DigitalInputConfig config1 = DigitalInput.newConfigBuilder(pi4j).load(inputProperties[0]).build();
