@@ -88,6 +88,9 @@ public class DigitalInputDetector{
 		DigitalInputConfig config3 = DigitalInput.newConfigBuilder(pi4j).load(inputProperties[2]).build();
 		var input3 = provider.create(config3);
 		
+		System.out.println(input1.state());
+		System.out.println(input2.state());
+		System.out.println(input3.state());
 		
 		input1.addListener(e -> {
 			if(e.state() == DigitalState.HIGH) {
