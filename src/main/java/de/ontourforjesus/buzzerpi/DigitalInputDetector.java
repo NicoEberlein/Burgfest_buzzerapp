@@ -45,11 +45,13 @@ public class DigitalInputDetector{
 	public void registerListener(DigitalInputListener digitalInputListener) {
 	
 		this.registeredListeners.add(digitalInputListener);
+		System.out.println("Registered new DigitalInputListener");
 		
 	}
 	
 	private void informAllRegisteredListeners(int pressedBuzzer) {
 		for(int i = 0; i<registeredListeners.size(); i++) {
+			System.out.println("Inform listener " + i + " that buzzer " + pressedBuzzer + " state changed to DigitalState.HIGH");
 			registeredListeners.get(i).inform(pressedBuzzer);
 		}
 	}
