@@ -44,9 +44,11 @@ public class DigitalInputDetector{
 					.provider("pigpio-digital-input")
 					.pull(PullResistance.PULL_DOWN);
 			
-			DigitalInput[] allInputs = new DigitalInput[3];
+			var input1 = pi4j.din().create(baseConfig.address(buzzerInputs[0]).name("b1in").id("b1in"));
+			var input2 = pi4j.din().create(baseConfig.address(buzzerInputs[1]).name("b2in").id("b2in"));
+			var input3 = pi4j.din().create(baseConfig.address(buzzerInputs[2]).name("b3in").id("b3in"));
 			
-			for(int i = 0; i<3; i++) {
+/*			for(int i = 0; i<3; i++) {
 			
 				allInputs[i] = pi4j
 						.din().create(baseConfig
@@ -55,21 +57,25 @@ public class DigitalInputDetector{
 								.name("Buzzer" + buzzerInputs[i] + "In")
 						);
 				
-			}
+			}*/
 			
-			allInputs[0].addListener(e -> {
+			System.out.println(input1.state());
+			System.out.println(input2.state());
+			System.out.println(input3.state());
+			
+			input1.addListener(e -> {
 				if(e.state() == DigitalState.HIGH) {
 					System.out.println("Buzzer 1 Digital State => HIGH");
 					informAllRegisteredListeners(1);
 				}
 			});
-			allInputs[1].addListener(e -> {
+			input2.addListener(e -> {
 				if(e.state() == DigitalState.HIGH) {
 					System.out.println("Buzzer 2 Digital State => HIGH");
 					informAllRegisteredListeners(2);
 				}
 			});
-			allInputs[2].addListener(e -> {
+			input3.addListener(e -> {
 				if(e.state() == DigitalState.HIGH) {
 					System.out.println("Buzzer 3 Digital State => HIGH");
 					informAllRegisteredListeners(3);
