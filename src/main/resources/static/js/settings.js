@@ -36,7 +36,8 @@ function sendRequest(functionToCall, url, type, body, headers){
 }
 
 function reset() {
-	sendRequest(null, window.location.origin + "/rest/reset", "GET", null, new Headers());
+	console.log("Sending request to reset gamedata");
+	sendRequest(showSuccessMessage, window.location.origin + "/rest/reset", "GET", null, new Headers());
 }
 
 function showSuccessMessage(responseObj) {
