@@ -24,6 +24,14 @@ public class GameModeWhoWasFirstData extends GameModeData{
 		
 	}
 	
+	public int getFirstBuzzer() {
+		return firstBuzzer;
+	}
+	
+	public GameModeType getGameModeType() {
+		return gameModeType;
+	}
+	
 	
 	
 	
