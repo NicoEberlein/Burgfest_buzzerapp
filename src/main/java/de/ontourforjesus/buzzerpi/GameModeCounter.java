@@ -29,7 +29,4 @@ public class GameModeCounter implements DigitalInputListener{
 	}
 	
 	
-
-	
-	
 }

@@ -19,6 +19,7 @@ public class DigitalInputDetector{
 	private ArrayList<DigitalInputListener> registeredListeners = new ArrayList<>();
 	
 	private Context pi4j;
+	private DigitalInput[] allInputs;
 	
 	private final int[] buzzerInputs;
 	private final int[] buzzerOutputs;
@@ -72,12 +73,12 @@ public class DigitalInputDetector{
 				.provider("pigpio-digital-input")
 				.pull(PullResistance.PULL_DOWN);
 		
-		DigitalInput[] allInputs = new DigitalInput[3];
+		allInputs = new DigitalInput[3];
 		
 		for(int i = 0; i<3; i++) {
 		
 			allInputs[i] = pi4j
-					.din().create(baseConfig
+					.create(baseConfig
 							.address(buzzerInputs[i])
 							.id("b" + buzzerInputs[i] + "in")
 							.name("Buzzer" + buzzerInputs[i] + "In")
@@ -88,19 +89,19 @@ public class DigitalInputDetector{
 		allInputs[0].addListener(e -> {
 			if(e.state() == DigitalState.HIGH) {
 				System.out.println("Buzzer 1 Digital State => HIGH");
-				informAllRegisteredListeners(1);
+				informAllRegisteredListeners(0);
 			}
 		});
 		allInputs[1].addListener(e -> {
 			if(e.state() == DigitalState.HIGH) {
 				System.out.println("Buzzer 2 Digital State => HIGH");
-				informAllRegisteredListeners(2);
+				informAllRegisteredListeners(1);
 			}
 		});
 		allInputs[2].addListener(e -> {
 			if(e.state() == DigitalState.HIGH) {
 				System.out.println("Buzzer 3 Digital State => HIGH");
-				informAllRegisteredListeners(3);
+				informAllRegisteredListeners(2);
 			}
 		});
 		
