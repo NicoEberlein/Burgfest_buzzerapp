@@ -1,4 +1,4 @@
-package de.ontourforjesus.buzzerpi;
+package de.ontourforjesus.buzzerpi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -10,12 +10,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.ontourforjesus.buzzerpi.DigitalInputDetector;
+import de.ontourforjesus.buzzerpi.GameModeData;
+import de.ontourforjesus.buzzerpi.gamemodes.GameMode;
+import de.ontourforjesus.buzzerpi.gamemodes.GameModeCounter;
+import de.ontourforjesus.buzzerpi.gamemodes.GameModeWhoWasFirst;
+
 @RestController
 @RequestMapping("/rest")
 public class BuzzerSettingsRestController {
 
-	@Autowired
-	GameModeCounter gameModeCounter;
+	private DigitalInputDetector digitalInputDetector;
+	
+	private GameMode currentGameMode;
+	
+	public BuzzerSettingsRestController(@Autowired DigitalInputDetector digitalInputDetector) {
+		
+		this.digitalInputDetector = digitalInputDetector;
+		currentGameMode = new GameModeCounter(this.digitalInputDetector);
+		
+	}
 	
 	private String[] teamnames = new String[] {"Team 1", "Team 2", "Team 3"};
 	
@@ -31,6 +45,14 @@ public class BuzzerSettingsRestController {
 		teamnames[1] = teamname2;
 		teamnames[2] = teamname3;
 		
+		if(gamemode.equals("counter")) {
+			currentGameMode = new GameModeCounter(digitalInputDetector);
+		}else if(gamemode.equals("whowasfirst")) {
+			currentGameMode = new GameModeWhoWasFirst(digitalInputDetector);
+		}else {
+			return ResponseEntity.badRequest().build();
+		}
+		
 		return ResponseEntity.ok().build();
 	}
 	
@@ -38,15 +60,16 @@ public class BuzzerSettingsRestController {
 	@CrossOrigin
 	public ResponseEntity<Object> reset() {
 		
-		gameModeCounter.reset();
+		System.out.println("Reset request was received");
+		currentGameMode.reset();
 		
 		return ResponseEntity.ok().build();
 	}
 	
 	@GetMapping("/data")
 	@CrossOrigin
-	public int[] buzzerdata() {
-		return gameModeCounter.getBuzzerCounter();
+	public ResponseEntity<GameModeData> buzzerdata() {
+		return ResponseEntity.ok(currentGameMode.getGameModeData());
 	}
 	
 	@GetMapping("/getTeamNames")
