@@ -35,18 +35,23 @@ function sendRequest(functionToCall, url, type, body, headers){
 		});
 }
 
-function reset() {
-	console.log("Sending request to reset gamedata");
-	sendRequest(showSuccessMessage, window.location.origin + "/rest/reset", "GET", null, new Headers());
+function resetGameData() {
+	sendRequest(showStatusMessage, window.location.origin + "/rest/reset", "GET", null, new Headers());
 }
 
-function showSuccessMessage(responseObj) {
+function showStatusMessage(responseObj) {
 	if(responseObj.responseStatus == 200) {
 		let success_div = document.createElement("div");
 		success_div.setAttribute("class", "alert alert-success mt-1");
 		success_div.innerHTML = "Daten wurden erfolgreich versendet";
 
 		document.getElementById("status").appendChild(success_div);
+	}else{
+		let error_div = document.createElement("div");
+		success_div.setAttribute("class", "alert alert-danger mt-1");
+		success_div.innerHTML = "Es ist ein Fehler aufgetreten. Mehr Details sind in der Konsole zu finden.";
+
+		document.getElementById("status").appendChild(error_div);
 	}
 }
 
@@ -74,7 +79,7 @@ function sendFormData() {
 		body.set("teamname3", "Team 3");
 	}
 	
-	sendRequest(showSuccessMessage, window.location.origin + "/rest/settings", "POST", body, new Headers());
+	sendRequest(showStatusMessage, window.location.origin + "/rest/settings", "POST", body, new Headers());
 	
 }
 
