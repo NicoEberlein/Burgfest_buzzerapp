@@ -8,11 +8,15 @@ function sendBuzzerDataRequest() {
 }
 
 function processBuzzerData(data) {
-    if(data != null) {
-        document.getElementById("counter_0").innerHTML = data[0];
-        document.getElementById("counter_1").innerHTML = data[1];
-        document.getElementById("counter_2").innerHTML = data[2];
-    }
+    if(data.gameModeType === "Counter") {
+		document.getElementById("counter_0").innerHTML = data.buzzerCounter[0];
+        document.getElementById("counter_1").innerHTML = data.buzzerCounter[1];
+        document.getElementById("counter_2").innerHTML = data.buzzerCounter[2];
+	}else if(data.gameModeType === "WhoWasFirst") {
+		document.getElementById("counter_0").innerHTML = "";
+        document.getElementById("counter_1").innerHTML = "";
+        document.getElementById("counter_2").innerHTML = "";
+	}
 }
 
 function processTeamNames(data) {
