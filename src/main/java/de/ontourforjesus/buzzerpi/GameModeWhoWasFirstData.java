@@ -2,7 +2,7 @@ package de.ontourforjesus.buzzerpi;
 
 public class GameModeWhoWasFirstData extends GameModeData{
 
-	private static GameModeType gameModeType = GameModeType.WhoWasFirst;
+	private final GameModeType gameModeType = GameModeType.WhoWasFirst;
 	
 	//No one has pressed a buzzer yet: firstBuzzer = 0
 	private int firstBuzzer;

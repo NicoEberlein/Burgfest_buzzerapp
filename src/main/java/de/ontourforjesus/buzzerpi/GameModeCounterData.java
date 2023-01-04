@@ -2,7 +2,7 @@ package de.ontourforjesus.buzzerpi;
 
 public class GameModeCounterData extends GameModeData{
 
-	private static GameModeType gameModeType = GameModeType.Counter;
+	private final GameModeType gameModeType = GameModeType.Counter;
 	
 	private int[] buzzerCounter;
 	
