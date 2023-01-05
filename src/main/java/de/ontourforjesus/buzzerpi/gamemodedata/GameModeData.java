@@ -7,6 +7,5 @@ public abstract class GameModeData {
 		WhoWasFirst
 	}
 	
-	public abstract void reset();
 	
 }

@@ -31,7 +31,7 @@ public class GameModeWhoWasFirst extends GameMode implements DigitalInputListene
 	
 	public void reset() {
 		alreadyBuzzered = false;
-		data.reset();
+		data = new GameModeWhoWasFirstData();
 	}
 
 	public GameModeData getGameModeData() {

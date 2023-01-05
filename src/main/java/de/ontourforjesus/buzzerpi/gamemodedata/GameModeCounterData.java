@@ -37,10 +37,5 @@ public class GameModeCounterData extends GameModeData{
 		buzzerCounter[buzzer]--;
 	}
 	
-	@Override
-	public void reset() {
-		buzzerCounter = new int[3];
-	}
-	
 	
 }

@@ -26,7 +26,7 @@ public class GameModeCounter extends GameMode implements DigitalInputListener{
 	@Override
 	public void reset() {
 		
-		data.reset();
+		data = new GameModeCounterData();
 		
 	}
 
