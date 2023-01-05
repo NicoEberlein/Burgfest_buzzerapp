@@ -33,6 +33,10 @@ public class GameModeWhoWasFirstData extends GameModeData{
 		return gameModeType;
 	}
 	
+	public String getTeamBackgroundColor() {
+		return teamBackgroundColor;
+	}
+	
 	
 	
 	
