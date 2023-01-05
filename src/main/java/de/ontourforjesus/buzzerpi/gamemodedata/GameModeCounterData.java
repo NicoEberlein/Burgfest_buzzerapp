@@ -1,4 +1,4 @@
-package de.ontourforjesus.buzzerpi;
+package de.ontourforjesus.buzzerpi.gamemodedata;
 
 
 public class GameModeCounterData extends GameModeData{

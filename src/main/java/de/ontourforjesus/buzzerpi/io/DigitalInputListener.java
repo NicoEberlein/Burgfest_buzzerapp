@@ -1,4 +1,4 @@
-package de.ontourforjesus.buzzerpi;
+package de.ontourforjesus.buzzerpi.io;
 
 public interface DigitalInputListener {
 

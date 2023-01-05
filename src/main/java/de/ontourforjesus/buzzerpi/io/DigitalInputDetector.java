@@ -1,4 +1,4 @@
-package de.ontourforjesus.buzzerpi;
+package de.ontourforjesus.buzzerpi.io;
 
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Value;

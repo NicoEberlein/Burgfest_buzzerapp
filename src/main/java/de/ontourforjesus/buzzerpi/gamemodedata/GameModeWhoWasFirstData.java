@@ -1,4 +1,4 @@
-package de.ontourforjesus.buzzerpi;
+package de.ontourforjesus.buzzerpi.gamemodedata;
 
 public class GameModeWhoWasFirstData extends GameModeData{
 

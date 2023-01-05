@@ -3,10 +3,10 @@ package de.ontourforjesus.buzzerpi.gamemodes;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-import de.ontourforjesus.buzzerpi.DigitalInputDetector;
-import de.ontourforjesus.buzzerpi.DigitalInputListener;
-import de.ontourforjesus.buzzerpi.GameModeCounterData;
-import de.ontourforjesus.buzzerpi.GameModeData;
+import de.ontourforjesus.buzzerpi.gamemodedata.GameModeCounterData;
+import de.ontourforjesus.buzzerpi.gamemodedata.GameModeData;
+import de.ontourforjesus.buzzerpi.io.DigitalInputDetector;
+import de.ontourforjesus.buzzerpi.io.DigitalInputListener;
 
 @Component
 @Primary
