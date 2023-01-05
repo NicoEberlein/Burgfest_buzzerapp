@@ -14,3 +14,9 @@ header:after{
     display: inline-block;
     width: 100%;
 }
+
+.logos{
+    font-size: 16px;
+    display: inline-block;
+    vertical-align: middle;
+}
