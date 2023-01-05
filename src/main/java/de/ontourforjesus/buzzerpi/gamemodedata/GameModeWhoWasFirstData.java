@@ -1,7 +1,5 @@
 package de.ontourforjesus.buzzerpi.gamemodedata;
 
-import org.springframework.context.annotation.PropertySource;
-
 public class GameModeWhoWasFirstData extends GameModeData{
 
 	private final GameModeType gameModeType = GameModeType.WhoWasFirst;
