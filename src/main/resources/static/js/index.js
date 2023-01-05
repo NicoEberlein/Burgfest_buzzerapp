@@ -16,6 +16,8 @@ function processBuzzerData(data) {
 	
     if(data.gameModeType === "Counter") {
 	
+		document.body.style.backgroundColor = "darkgrey";
+	
 		document.getElementById("multipurposeframe_0").innerHTML = data.buzzerCounter[0];
         document.getElementById("multipurposeframe_1").innerHTML = data.buzzerCounter[1];
         document.getElementById("multipurposeframe_2").innerHTML = data.buzzerCounter[2];
