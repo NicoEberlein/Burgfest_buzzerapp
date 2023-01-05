@@ -9,9 +9,10 @@ function sendBuzzerDataRequest() {
 
 function processBuzzerData(data) {
 	
-	document.getElementById("multipurposeframe_0").setAttribute("class", data.gameModeType.toLowerCase());
-	document.getElementById("multipurposeframe_1").setAttribute("class", data.gameModeType.toLowerCase());
-	document.getElementById("multipurposeframe_2").setAttribute("class", data.gameModeType.toLowerCase());
+	document.getElementById("multipurposeframe_0").setAttribute("class", "multipurposeframe_" + data.gameModeType.toLowerCase());
+	document.getElementById("multipurposeframe_1").setAttribute("class", "multipurposeframe_" + data.gameModeType.toLowerCase());
+	document.getElementById("multipurposeframe_2").setAttribute("class", "multipurposeframe_" + data.gameModeType.toLowerCase());
+	
 	
     if(data.gameModeType === "Counter") {
 	
@@ -19,6 +20,12 @@ function processBuzzerData(data) {
         document.getElementById("multipurposeframe_1").innerHTML = data.buzzerCounter[1];
         document.getElementById("multipurposeframe_2").innerHTML = data.buzzerCounter[2];
         
+	}else if(data.gamemodeType === "WhoWasFirst") {
+		
+		document.getElementById("multipurposeframe_0").innerHTML = "";
+        document.getElementById("multipurposeframe_1").innerHTML = "";
+        document.getElementById("multipurposeframe_2").innerHTML = "";
+		
 	}
 }
 
