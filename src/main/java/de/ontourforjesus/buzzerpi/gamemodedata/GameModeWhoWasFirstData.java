@@ -9,7 +9,7 @@ public class GameModeWhoWasFirstData extends GameModeData{
 	
 	private String teamBackgroundColor;
 	
-	private final String[] teamBackgroundColors = new String[] {"#99FF00", "#FFCC00","#CC0000"};
+	private final String[] teamBackgroundColors = new String[] {"#008000", "#FFFF00","#FF0000"};
 	
 	public GameModeWhoWasFirstData() {
 		firstBuzzer = -1;
