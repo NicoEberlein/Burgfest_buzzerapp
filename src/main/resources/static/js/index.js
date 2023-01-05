@@ -20,13 +20,19 @@ function processBuzzerData(data) {
         document.getElementById("multipurposeframe_1").innerHTML = data.buzzerCounter[1];
         document.getElementById("multipurposeframe_2").innerHTML = data.buzzerCounter[2];
         
-	}else if(data.gamemodeType === "WhoWasFirst") {
+	}else if(data.gameModeType === "WhoWasFirst") {
 		
 		document.getElementById("multipurposeframe_0").innerHTML = "";
         document.getElementById("multipurposeframe_1").innerHTML = "";
         document.getElementById("multipurposeframe_2").innerHTML = "";
-		
+        
+        if(data.firstBuzzer != -1) {
+			document.body.style.backgroundColor = data.teamBackgroundColor;
+		}else{
+			document.body.style.backgroundColor = "darkgrey";
+		}
 	}
+		
 }
 
 function processTeamNames(data) {

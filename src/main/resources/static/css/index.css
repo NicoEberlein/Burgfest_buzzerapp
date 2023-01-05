@@ -20,6 +20,9 @@
 .multipurposeframe_whowasfirst {
 	margin: 0 auto 0 auto;
     border-radius: 10px;
+    border-style: solid;
+    border-color: darkgrey;
+    border-width: medium;
     height: 500px;
     width: 500px;
 }
