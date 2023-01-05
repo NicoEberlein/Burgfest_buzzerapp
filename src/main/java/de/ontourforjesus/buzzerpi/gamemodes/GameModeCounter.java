@@ -1,15 +1,10 @@
 package de.ontourforjesus.buzzerpi.gamemodes;
 
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
-
 import de.ontourforjesus.buzzerpi.gamemodedata.GameModeCounterData;
 import de.ontourforjesus.buzzerpi.gamemodedata.GameModeData;
 import de.ontourforjesus.buzzerpi.io.DigitalInputDetector;
 import de.ontourforjesus.buzzerpi.io.DigitalInputListener;
 
-@Component
-@Primary
 public class GameModeCounter extends GameMode implements DigitalInputListener{
 	
 	private GameModeCounterData data;
