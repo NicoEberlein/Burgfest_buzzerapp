@@ -8,20 +8,23 @@ function sendBuzzerDataRequest() {
 }
 
 function processBuzzerData(data) {
+	
+	document.getElementById("multipurposeframe_0").setAttribute("class", data.gameModeType.toLowerCase());
+	document.getElementById("multipurposeframe_1").setAttribute("class", data.gameModeType.toLowerCase());
+	document.getElementById("multipurposeframe_2").setAttribute("class", data.gameModeType.toLowerCase());
+	
     if(data.gameModeType === "Counter") {
-		document.getElementById("counter_0").innerHTML = data.buzzerCounter[0];
-        document.getElementById("counter_1").innerHTML = data.buzzerCounter[1];
-        document.getElementById("counter_2").innerHTML = data.buzzerCounter[2];
-	}else if(data.gameModeType === "WhoWasFirst") {
-		document.getElementById("counter_0").innerHTML = "";
-        document.getElementById("counter_1").innerHTML = "";
-        document.getElementById("counter_2").innerHTML = "";
+	
+		document.getElementById("multipurposeframe_0").innerHTML = data.buzzerCounter[0];
+        document.getElementById("multipurposeframe_1").innerHTML = data.buzzerCounter[1];
+        document.getElementById("multipurposeframe_2").innerHTML = data.buzzerCounter[2];
+        
 	}
 }
 
 function processTeamNames(data) {
-	for(var i = 1; i<data.length+1; i++) {
-		document.getElementById("teamname" + i).innerHTML = data[i-1];
+	for(var i = 0; i<data.length; i++) {
+		document.getElementById("teamname" + i).innerHTML = data[i];
 	}
 }
 

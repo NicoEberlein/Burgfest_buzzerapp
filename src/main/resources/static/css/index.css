@@ -4,12 +4,12 @@
     vertical-align: middle;
 }
 
-#buzzercounters{
+#multipurposeframes{
     width: 90%;
     margin: 6% auto 0 auto;
 }
 
-.counter{
+.multipurposeframe_counter{
     margin: 0 auto 0 auto;
     border-radius: 10px;
     font-size: 300px;
@@ -17,19 +17,26 @@
     line-height: 500px;
 }
 
-.counter_label{
+.multipurposeframe_whowasfirst {
+	margin: 0 auto 0 auto;
+    border-radius: 10px;
+    height: 500px;
+    width: 500px;
+}
+
+.multipurposeframe_label{
     font-size: 80px;
     color: #FFF;
 }
 
-#counter_0{
+#multipurposeframes_0{
     background-color: #99FF00;
 }
 
-#counter_1{
+#multipurposeframe_1{
     background-color: #FFCC00;
 }
 
-#counter_2{
+#multipurposeframe_2{
     background-color: #CC0000;
 }
