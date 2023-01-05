@@ -12,8 +12,11 @@ public class GameModeWhoWasFirst extends GameMode implements DigitalInputListene
 	
 	private GameModeWhoWasFirstData data;
 	
+	private boolean alreadyBuzzered;
+	
 	public GameModeWhoWasFirst(DigitalInputDetector digitalInputDetector) {
 		
+		alreadyBuzzered = false;
 		data = new GameModeWhoWasFirstData();
 		digitalInputDetector.registerListener(this);
 		
@@ -22,9 +25,15 @@ public class GameModeWhoWasFirst extends GameMode implements DigitalInputListene
 	@Override
 	public void inform(int pressedBuzzer) {
 		
+		if(!alreadyBuzzered) {
+			data.setWhoBuzzeredFirst(pressedBuzzer);
+			alreadyBuzzered = true;
+		}
+		
 	}
 	
 	public void reset() {
+		alreadyBuzzered = false;
 		data.reset();
 	}
 
