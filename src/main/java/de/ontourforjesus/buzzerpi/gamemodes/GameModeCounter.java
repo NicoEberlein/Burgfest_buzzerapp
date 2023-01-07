@@ -23,6 +23,24 @@ public class GameModeCounter extends GameMode implements DigitalInputListener{
 		
 	}
 	
+	public void setSingleBuzzerCounter(int buzzer, int counter) {
+		
+		data.setSingleBuzzerCounter(buzzer, counter);
+		
+	}
+	
+	public void incrementSingleBuzzerCounter(int buzzer) {
+		
+		data.incrementSingleBuzzerCounter(buzzer);
+		
+	}
+	
+	public void decrementSingleBuzzerCounter(int buzzer) {
+		
+		data.decrementSingleBuzzerCounter(buzzer);
+		
+	}
+	
 	@Override
 	public void reset() {
 		
