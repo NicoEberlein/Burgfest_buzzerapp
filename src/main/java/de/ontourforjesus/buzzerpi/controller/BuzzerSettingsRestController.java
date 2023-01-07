@@ -1,15 +1,19 @@
 package de.ontourforjesus.buzzerpi.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.ontourforjesus.buzzerpi.gamemodedata.GameModeCounterData;
 import de.ontourforjesus.buzzerpi.gamemodedata.GameModeData;
 import de.ontourforjesus.buzzerpi.gamemodes.GameMode;
 import de.ontourforjesus.buzzerpi.gamemodes.GameModeCounter;
@@ -37,18 +41,36 @@ public class BuzzerSettingsRestController {
 	@CrossOrigin
 	public ResponseEntity<Object> setSettings(
 			@RequestParam("gamemode") String gamemode,
-			@RequestParam("teamname1") String teamname1,
-			@RequestParam("teamname2") String teamname2,
-			@RequestParam("teamname3") String teamname3) {
+			@RequestParam("teamname1") Optional<String> teamname1,
+			@RequestParam("teamname2") Optional<String> teamname2,
+			@RequestParam("teamname3") Optional<String> teamname3,
+			@RequestParam("scoreteam1") Optional<Integer> scoreTeam1,
+			@RequestParam("scoreteam2") Optional<Integer> scoreTeam2,
+			@RequestParam("scoreteam3") Optional<Integer> scoreTeam3){
 		
-		teamnames[0] = teamname1;
-		teamnames[1] = teamname2;
-		teamnames[2] = teamname3;
+		teamname1.ifPresent((value) -> {teamnames[0] = value;});
+		teamname2.ifPresent((value) -> {teamnames[1] = value;});
+		teamname3.ifPresent((value) -> {teamnames[2] = value;});
 		
 		if(gamemode.equals("counter")) {
-			currentGameMode = new GameModeCounter(digitalInputDetector);
+			
+			if(!(currentGameMode instanceof GameModeCounter)) {
+				currentGameMode = new GameModeCounter(digitalInputDetector);
+			}
+			
+			GameModeCounter gameModeCounter = (GameModeCounter) currentGameMode;
+			
+			scoreTeam1.ifPresent((value) -> gameModeCounter.setSingleBuzzerCounter(0, value));
+			scoreTeam2.ifPresent((value) -> gameModeCounter.setSingleBuzzerCounter(1, value));
+			scoreTeam3.ifPresent((value) -> gameModeCounter.setSingleBuzzerCounter(2, value));	
+			
+			
 		}else if(gamemode.equals("whowasfirst")) {
-			currentGameMode = new GameModeWhoWasFirst(digitalInputDetector);
+			
+			if(!(currentGameMode instanceof GameModeWhoWasFirst)) {
+				currentGameMode = new GameModeWhoWasFirst(digitalInputDetector);
+			}
+			
 		}else {
 			return ResponseEntity.badRequest().build();
 		}
@@ -76,6 +98,36 @@ public class BuzzerSettingsRestController {
 	@CrossOrigin
 	public String[] getTeamNames() {
 		return teamnames;
+	}
+	
+	@CrossOrigin
+	@GetMapping("/incrementBuzzer/{buzzer}")
+	public ResponseEntity<Object> incrementBuzzer(@PathVariable("buzzer") int buzzer) {
+		
+		System.out.println("Incrementing buzzer " + buzzer);
+		
+		if(currentGameMode instanceof GameModeCounter) {
+			((GameModeCounter) currentGameMode).incrementSingleBuzzerCounter(buzzer);
+			return ResponseEntity.ok().build();
+		}else {
+			return ResponseEntity.badRequest().build();
+		}
+		
+	}
+	
+	@CrossOrigin
+	@GetMapping("/decrementBuzzer/{buzzer}")
+	public ResponseEntity<Object> decrementBuzzer(@PathVariable("buzzer") int buzzer) {
+		
+		System.out.println("Decrementing buzzer " + buzzer);
+		
+		if(currentGameMode instanceof GameModeCounter) {
+			((GameModeCounter) currentGameMode).decrementSingleBuzzerCounter(buzzer);
+			return ResponseEntity.ok().build();
+		}else {
+			return ResponseEntity.badRequest().build();
+		}
+		
 	}
 	
 }
