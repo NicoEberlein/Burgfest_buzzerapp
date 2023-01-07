@@ -72,12 +72,12 @@ function resetGameData() {
 
 function incrementBuzzer(buzzer) {
 	clearErrors();
-	sendRequest(showStatusMessage, window.location.origin + "/rest/incrementBuzzer/" + buzzer, "GET", null, new Headers());
+	sendRequest(showStatusMessage, window.location.origin + "/rest/incrementBuzzer/" + buzzer-1, "GET", null, new Headers());
 }
 
 function decrementBuzzer(buzzer) {
 	clearErrors();
-	sendRequest(showStatusMessage, window.location.origin + "/rest/decrementBuzzer/" + buzzer, "GET", null, new Headers());
+	sendRequest(showStatusMessage, window.location.origin + "/rest/decrementBuzzer/" + buzzer-1, "GET", null, new Headers());
 }
 
 
