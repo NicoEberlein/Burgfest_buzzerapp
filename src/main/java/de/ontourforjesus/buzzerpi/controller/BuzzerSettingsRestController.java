@@ -55,6 +55,7 @@ public class BuzzerSettingsRestController {
 		if(gamemode.equals("counter")) {
 			
 			if(!(currentGameMode instanceof GameModeCounter)) {
+				digitalInputDetector.removeListener((DigitalInputListener) currentGameMode);
 				currentGameMode = new GameModeCounter(digitalInputDetector);
 			}
 			
@@ -68,6 +69,7 @@ public class BuzzerSettingsRestController {
 		}else if(gamemode.equals("whowasfirst")) {
 			
 			if(!(currentGameMode instanceof GameModeWhoWasFirst)) {
+				digitalInputDetector.removeListener((DigitalInputListener) currentGameMode);
 				currentGameMode = new GameModeWhoWasFirst(digitalInputDetector);
 			}
 			
