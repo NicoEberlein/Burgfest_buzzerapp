@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>de.ontourforjesus</groupId>
 	<artifactId>buzzerpi</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>buzzerpi</name>
 	<description>Demo project for Spring Boot</description>
 	<packaging>jar</packaging>
