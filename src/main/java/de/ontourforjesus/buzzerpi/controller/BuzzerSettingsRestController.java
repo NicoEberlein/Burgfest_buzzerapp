@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.ontourforjesus.buzzerpi.gamemodedata.GameModeCounterData;
 import de.ontourforjesus.buzzerpi.gamemodedata.GameModeData;
 import de.ontourforjesus.buzzerpi.gamemodes.GameMode;
 import de.ontourforjesus.buzzerpi.gamemodes.GameModeCounter;
 import de.ontourforjesus.buzzerpi.gamemodes.GameModeWhoWasFirst;
 import de.ontourforjesus.buzzerpi.io.DigitalInputDetector;
+import de.ontourforjesus.buzzerpi.io.DigitalInputListener;
 
 @RestController
 @RequestMapping("/rest")
