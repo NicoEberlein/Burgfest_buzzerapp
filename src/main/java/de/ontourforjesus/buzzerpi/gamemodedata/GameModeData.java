@@ -4,8 +4,8 @@ public abstract class GameModeData {
 
 	protected enum GameModeType {
 		Counter,
-		WhoWasFirst
+		WhoWasFirst,
+		NameSelection
 	}
-	
 	
 }

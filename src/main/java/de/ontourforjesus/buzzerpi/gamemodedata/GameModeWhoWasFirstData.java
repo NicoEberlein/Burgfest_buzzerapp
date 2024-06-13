@@ -27,16 +27,12 @@ public class GameModeWhoWasFirstData extends GameModeData{
 		return firstBuzzer;
 	}
 	
-	public GameModeType getGameModeType() {
-		return gameModeType;
-	}
-	
 	public String getTeamBackgroundColor() {
 		return teamBackgroundColor;
 	}
-	
-	
-	
-	
+
+		public GameModeType getGameModeType() {
+		return gameModeType;
+	}
 	
 }

@@ -21,10 +21,6 @@ public class GameModeCounterData extends GameModeData{
 		return buzzerCounter;
 	}
 	
-	public GameModeType getGameModeType() {
-		return gameModeType;
-	}
-	
 	public void setSingleBuzzerCounter(int buzzer, int count) {
 		buzzerCounter[buzzer] = count;
 	}
@@ -37,5 +33,8 @@ public class GameModeCounterData extends GameModeData{
 		buzzerCounter[buzzer]--;
 	}
 	
+	public GameModeType getGameModeType() {
+		return gameModeType;
+	}
 	
 }

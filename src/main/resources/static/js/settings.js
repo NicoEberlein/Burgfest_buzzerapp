@@ -44,16 +44,14 @@ function sendCurrentScoreRequest() {
 }
 
 function processCurrentScoreResponse(data) {
-	var responseBody = data.responseBody;
-	
+	let responseBody = data.responseBody;
+
 	if(responseBody.gameModeType === "Counter") {
-		
 		for(var i = 0;i<3;i++) {
 			document.getElementById("current-score-" + (i+1)).innerHTML = responseBody.buzzerCounter[i];
 		}
 		
 	}else if(responseBody.gameModeType === "WhoWasFirst") {
-		
 		for(var i = 0; i<3; i++) {
 			document.getElementById("current-score-" + (i+1)).innerHTML = "";
 		}
@@ -62,6 +60,13 @@ function processCurrentScoreResponse(data) {
 			document.getElementById("current-score-" + (responseBody.firstBuzzer + 1)).innerHTML = "Erster";
 		}
 		
+	}else if(responseBody.gameModeType === "NameSelection") {
+		for(var i = 0;i<3;i++) {
+			document.getElementById("current-score-" + (i+1)).innerHTML = "";
+		}
+		let tableString = responseBody.names.map((name, i) => (`<tr><td>${i}</td><td>${name}</td></tr>`)).reduce((sum, ele) => (sum + ele));
+		document.getElementById("currentNames").innerHTML = tableString;
+
 	}
 }
 
@@ -132,6 +137,19 @@ function sendFormData() {
 	
 	sendRequest(showStatusMessage, window.location.origin + "/rest/settings", "POST", body, new Headers());
 	
+}
+
+function processNameAdd() {
+	const names = document.getElementById("add-name").value;
+	if(names) {
+		const namesArray = names.split(";");
+		console.dir(namesArray);
+		sendRequest(showStatusMessage, window.location.origin + "/rest/setNames", "POST", JSON.stringify(namesArray), new Headers(
+			{
+				"Content-Type": "application/json"
+			}
+		));
+	}
 }
 
 

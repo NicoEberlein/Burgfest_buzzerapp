@@ -1,14 +1,18 @@
 package de.ontourforjesus.buzzerpi.controller;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import de.ontourforjesus.buzzerpi.gamemodedata.GameModeData;
 import de.ontourforjesus.buzzerpi.gamemodes.GameMode;
 import de.ontourforjesus.buzzerpi.gamemodes.GameModeCounter;
+import de.ontourforjesus.buzzerpi.gamemodes.GameModeNameSelection;
 import de.ontourforjesus.buzzerpi.gamemodes.GameModeWhoWasFirst;
 import de.ontourforjesus.buzzerpi.io.DigitalInputDetector;
 import de.ontourforjesus.buzzerpi.io.DigitalInputListener;
@@ -73,7 +78,14 @@ public class BuzzerSettingsRestController {
 				currentGameMode = new GameModeWhoWasFirst(digitalInputDetector);
 			}
 			
-		}else {
+		} else if(gamemode.equals("nameselection")) {
+
+			if(!(currentGameMode instanceof GameModeNameSelection)) {
+				digitalInputDetector.removeListener((DigitalInputListener) currentGameMode);
+				currentGameMode = new GameModeNameSelection(digitalInputDetector);
+			}
+
+		} else {
 			return ResponseEntity.badRequest().build();
 		}
 		
@@ -131,6 +143,36 @@ public class BuzzerSettingsRestController {
 		}
 		
 	}
+
+	@CrossOrigin
+	@PostMapping(value = "/setNames", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> setNames(@RequestBody ArrayList<String> names) {
+		if(currentGameMode instanceof GameModeNameSelection) {
+			((GameModeNameSelection) currentGameMode).setNames(names);
+			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.badRequest().build();
+	}
+
+	/*@CrossOrigin
+	@PutMapping(value = "/addName", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> addName(@RequestBody String name) {
+		if(currentGameMode instanceof GameModeNameSelection) {
+			((GameModeNameSelection) currentGameMode).addName(name);
+		}
+		return ResponseEntity.ok().build();
+	}
+
+	@CrossOrigin
+	@DeleteMapping(value = "/removeName", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> removeName(@RequestBody ArrayList<String> names) {
+		if(currentGameMode instanceof GameModeNameSelection) {
+			names.forEach((name) -> {
+				((GameModeNameSelection) currentGameMode).removeName(name);
+			});
+		}
+		return ResponseEntity.ok().build();
+	}*/
 	
 }
 

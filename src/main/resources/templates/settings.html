@@ -33,6 +33,7 @@
 							name="gamemode">
 							<option value="counter">Buzzerdr&uumlcke z&aumlhlen</option>
 							<option value="whowasfirst">Wer war der Erste?</option>
+							<option value="nameselection">Name Selection</option>
 						</select>
 					</div>
 
@@ -134,6 +135,18 @@
 
 				</form>
 				
+			</div>
+
+			<div class="card-body">
+
+				<form action="javascript:void(0);">
+					<label for="add-name">Name hinzuf&uuml;gen:</label>
+					<input type="text" id="add-name" placeholder="Name separiert durch ;"/>
+					<button onClick="processNameAdd()" class="btn btn-success">+</button>
+				</form>
+
+				<table id="currentNames"></table>
+
 			</div>
 
 		</div>
